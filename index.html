@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Event Finder</title>
+  <!-- Link directly to root CSS stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation & Branding Banner -->
+  <header>
+    <h1>Campus Event Finder</h1>
+    <p>Centralized schedule and ticket management for students</p>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Search & Category Filter Section -->
+    <section class="controls">
+      <input type="text" id="search-input" placeholder="🔍 Search event or categories...">
+    </section>
+
+    <!-- 2-Column Dashboard Grid matching Figma wireframe layout -->
+    <div class="content-grid">
+
+      <!-- Left Column: Dynamic Student Event Feed -->
+      <section class="events-section">
+        <h2>Upcoming Campus Events</h2>
+        <div id="event-container" class="grid"></div>
+      </section>
+
+      <!-- Right Column: Admin Organizer Management Panel -->
+      <section class="admin-section">
+        <h2>Admin Organizer Panel</h2>
+        <h3>Admin: Create/Update Event</h3>
+
+        <!-- Form for creating new event listings -->
+        <form id="event-form">
+          <input type="text" id="title" placeholder="Title: e.g. Tech Club Hackathon" required>
+          <input type="text" id="category" placeholder="Category: Technology" required>
+          <input type="date" id="date" required>
+          <input type="text" id="location" placeholder="Location: Auditorium A" required>
+          <input type="number" id="capacity" placeholder="Capacity: 50" required>
+          <textarea id="description" placeholder="Event Description..." rows="3"></textarea>
+          <button type="submit" class="btn-primary">Create Event</button>
+        </form>
+
+        <!-- Dynamic summary of active event stats -->
+        <div class="admin-stats">
+          <h3>Event Management and Stats</h3>
+          <ul id="admin-event-list"></ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Load main modular JavaScript entry point -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
