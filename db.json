@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "title": "Tech Club Hackathon",
+      "category": "Technology",
+      "date": "2026-11-10",
+      "location": "Auditorium A",
+      "description": "Annual 12-hour student coding challenge.",
+      "capacity": 50,
+      "registrations": 38
+    },
+    {
+      "id": "2",
+      "title": "Campus Acoustic Night",
+      "category": "Arts",
+      "date": "2026-11-15",
+      "location": "Student Union Stage",
+      "description": "Live musical performances and spoken word poetry.",
+      "capacity": 100,
+      "registrations": 85
+    }
+  ]
+}
