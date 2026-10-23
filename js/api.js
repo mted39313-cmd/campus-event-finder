@@ -1,5 +1,5 @@
 // Base URL pointing to deployed or local JSON Server
-const API_URL = `http://localhost:5500`;
+const API_URL = `http://localhost:3000`;
 
 /*
   1. GET METHOD: Retrieve all event listings from backend

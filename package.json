@@ -1,0 +1,14 @@
+{
+  "name": "campus-event-finder",
+  "version": "1.0.0",
+  "description": "Centralized schedule and ticket management platform for campus events.",
+  "type": "module",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "json-server": "^0.17.4"
+  }
+}
