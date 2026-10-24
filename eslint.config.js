@@ -9,7 +9,9 @@ export default [
         console: "readonly",
         alert: "readonly",
         confirm: "readonly",
-        fetch: "readonly"
+        fetch: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly"
       }
     },
     rules: {

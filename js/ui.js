@@ -67,7 +67,7 @@ export function showError(message) {
   }
 
   errorBanner.textContent = message;
-
+/* global setTimeout */
   setTimeout(() => {
     if (errorBanner) {
       errorBanner.remove();
