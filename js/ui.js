@@ -46,3 +46,31 @@ export function validateEventInput(title, category, date, location, capacity) {
   }
   return { isValid: true, message: '' };
 }
+/*
+  Displays a temporary error message banner on the UI
+ */
+export function showError(message) {
+  let errorBanner = document.getElementById('error-banner');
+
+  if (!errorBanner) {
+    errorBanner = document.createElement('div');
+    errorBanner.id = 'error-banner';
+    errorBanner.style.backgroundColor = '#ffdddd';
+    errorBanner.style.color = '#d8000c';
+    errorBanner.style.padding = '10px 15px';
+    errorBanner.style.margin = '10px 0';
+    errorBanner.style.borderRadius = '4px';
+    errorBanner.style.border = '1px solid #d8000c';
+    
+    const container = document.querySelector('main') || document.body;
+    container.prepend(errorBanner);
+  }
+
+  errorBanner.textContent = message;
+
+  setTimeout(() => {
+    if (errorBanner) {
+      errorBanner.remove();
+    }
+  }, 4000);
+}

@@ -1,7 +1,7 @@
 // Import API helper functions to communicate with the backend server
 import { getEvents, createEvent, updateEventRegistration, deleteEvent } from './api.js';
 // Import UI helper functions to render cards and validate forms
-import { renderEvents, validateEventInput } from './ui.js';
+import { renderEvents, validateEventInput, showError } from './ui.js';
 
 // Select key HTML elements from the webpage
 const eventContainer = document.getElementById('event-container');
@@ -95,8 +95,9 @@ eventForm.addEventListener('submit', async (e) => {
     eventForm.reset();
     await initApp();
   } catch (error) {
-    alert('Error creating event listing.');
-  }
+  console.error(error); // This uses the error variable
+  showError("...");
+}
 });
 
 // Use event delegation on the container to handle button clicks inside event cards
@@ -120,8 +121,9 @@ eventContainer.addEventListener('click', async (e) => {
       alert('🎟️ Ticket claimed successfully!');
       await initApp(); // Refresh data on screen
     } catch (error) {
-      alert('Error updating registration.');
-    }
+  console.error(error);
+  showError("...");
+}
   }
 
   // Handle Delete button click (DELETE request)
@@ -131,8 +133,8 @@ eventContainer.addEventListener('click', async (e) => {
         await deleteEvent(id);
         await initApp(); // Refresh data on screen
       } catch (error) {
-        alert('Error deleting event listing.');
-      }
+  console.error(error);
+}
     }
   }
 });
