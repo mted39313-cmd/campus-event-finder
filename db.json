@@ -19,6 +19,16 @@
       "description": "Live musical performances and spoken word poetry.",
       "capacity": 100,
       "registrations": 86
+    },
+    {
+      "title": "baba",
+      "category": "grass",
+      "date": "2026-12-11",
+      "location": "Auditorium A",
+      "capacity": 5,
+      "description": "wuehh wewe",
+      "registrations": 0,
+      "id": "sAnERPi"
     }
   ]
 }

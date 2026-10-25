@@ -1,61 +1,82 @@
-// Base URL pointing to deployed or local JSON Server
-const API_URL = `http://localhost:3000`;
+/* global localStorage */
+// LocalStorage key for storing campus events data
+const STORAGE_KEY = 'campus_events_data';
+const defaultEvents = [
+  {
+    id: '1',
+    title: 'Tech club hackathon',
+    category: 'Technology',
+    date: '2026-11-10',
+    location: 'Aud A',
+    description: 'Annual 12 hour coding challenge.',
+    capacity: 50,
+    registrations: 38
+  },
+  {
+    id: '2',
+    title: 'Campus acoustic nights',
+    category: 'Arts',
+    date: '2026-11-15',
+    location: 'stage',
+    description: 'live musical perfomances and spoken word poetry.',
+    capacity: 100,
+    registrations: 85
+  }
+];
 
-/*
-  1. GET METHOD: Retrieve all event listings from backend
- */
+// Helper: Get events from localStorage (seeds defaults if none exist)
+function getStoredEvents() {
+  const data = localStorage.getItem(STORAGE_KEY);
+  if (!data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultEvents));
+    return defaultEvents;
+  }
+  return JSON.parse(data);
+}
+
+// Helper: Save events array to localStorage
+function saveStoredEvents(events) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+}
+
+// GET: Fetch all events
 export async function getEvents() {
-  const response = await fetch(`${API_URL}/events`);
-  if (!response.ok) throw new Error('Failed to fetch events.');
-  return await response.json();
+  return getStoredEvents();
 }
 
-/*
-  2. POST METHOD: Submit a new campus event listing
- */
+// POST: Create a new event
 export async function createEvent(eventData) {
-  const response = await fetch(`${API_URL}/events`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(eventData)
-  });
-  if (!response.ok) throw new Error('Failed to create event.');
-  return await response.json();
+  const events = getStoredEvents();
+  const newEvent = {
+    ...eventData,
+    id: Date.now().toString()
+  };
+  events.push(newEvent);
+  saveStoredEvents(events);
+  return newEvent;
 }
 
-/*
-  3. PUT METHOD: Full record update for an event
- */
-export async function updateEventFull(id, updatedData) {
-  const response = await fetch(`${API_URL}/events/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updatedData)
+// PATCH: Update ticket / RSVP registration count
+export async function updateEventRegistration(id, updatedData) {
+  const events = getStoredEvents();
+  let updatedEvent = null;
+  
+  const newEvents = events.map(event => {
+    if (event.id === String(id)) {
+      updatedEvent = { ...event, ...updatedData };
+      return updatedEvent;
+    }
+    return event;
   });
-  if (!response.ok) throw new Error('Failed to perform full update.');
-  return await response.json();
+  
+  saveStoredEvents(newEvents);
+  return updatedEvent;
 }
 
-/*
-  4. PATCH METHOD: Partial update to increment RSVP registration numbers
- */
-export async function updateEventRegistration(id, newRegistrationCount) {
-  const response = await fetch(`${API_URL}/events/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ registrations: newRegistrationCount })
-  });
-  if (!response.ok) throw new Error('Failed to update registration.');
-  return await response.json();
-}
-
-/*
-  5. DELETE METHOD: Remove an event record from backend
- */
+// DELETE: Remove an event
 export async function deleteEvent(id) {
-  const response = await fetch(`${API_URL}/events/${id}`, {
-    method: 'DELETE'
-  });
-  if (!response.ok) throw new Error('Failed to delete event.');
-  return await response.json();
+  const events = getStoredEvents();
+  const newEvents = events.filter(event => event.id !== String(id));
+  saveStoredEvents(newEvents);
+  return { success: true };
 }
